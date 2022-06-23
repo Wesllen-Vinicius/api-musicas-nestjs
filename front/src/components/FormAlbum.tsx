@@ -20,7 +20,7 @@ export function FormAlbum({ albumId }: FormAlbumProps) {
         await api.put(`albums/${albumId}`, data);
         Toast.fire({
           icon: "success",
-          title: "Cadastro realizado com sucesso!",
+          title: "Atualizado com sucesso!",
         });
         fn();
       } catch (e: any) {
