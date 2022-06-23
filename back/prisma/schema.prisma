@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator docs {
+  provider = "node node_modules/prisma-docs-generator"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// datasource db {
+// provider = "postgresql"
+//  url      = env("DATABASE_URL")
+// }
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  user_name     String
+  email         String   @unique
+  idade         Int?
+  date_created  DateTime @default(now())
+  last_modified DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Artista {
+  id            Int             @id @default(autoincrement())
+  f_name        String
+  l_name        String
+  date_created  DateTime        @default(now())
+  last_modified DateTime        @updatedAt
+  albums        Album[]
+  musicas       ArtistaMusica[]
+
+  Musica Musica[]
+  @@map("artistas")
+}
+
+model Musica {
+  id            Int      @id @default(autoincrement())
+  titulo        String
+  date_created  DateTime @default(now())
+  last_modified DateTime @updatedAt
+  Artista       Artista? @relation(fields: [artistaId], references: [id])
+  artistaId     Int?
+  Album         Album?   @relation(fields: [albumId], references: [id])
+  albumId       Int?
+
+  ArtistaMusica ArtistaMusica[]
+
+  @@map("musicas")
+}
+
+model Album {
+  id            Int       @id @default(autoincrement())
+  nome_album    String
+  autor         String?
+  date_created  DateTime  @default(now())
+  last_modified DateTime  @updatedAt
+  artista       Artista[]
+  musicas       Musica[]
+
+  @@map("albums")
+}
+
+model ArtistaMusica {
+  id        Int      @id @default(autoincrement())
+  artista   Artista? @relation(fields: [artistaId], references: [id])
+  artistaId Int
+  musica    Musica?  @relation(fields: [musicaId], references: [id])
+  musicaId  Int
+
+  @@map("artista_musica")
+}

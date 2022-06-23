@@ -1,0 +1,66 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table users {
+  id Int [pk, increment]
+  user_name String [not null]
+  email String [unique, not null]
+  idade Int
+  date_created DateTime [default: `now()`, not null]
+  last_modified DateTime [not null]
+}
+
+Table artistas {
+  id Int [pk, increment]
+  f_name String [not null]
+  l_name String [not null]
+  date_created DateTime [default: `now()`, not null]
+  last_modified DateTime [not null]
+  albums albums [not null]
+  musicas artista_musica [not null]
+  Musica musicas [not null]
+}
+
+Table musicas {
+  id Int [pk, increment]
+  titulo String [not null]
+  date_created DateTime [default: `now()`, not null]
+  last_modified DateTime [not null]
+  Artista artistas
+  artistaId Int
+  Album albums
+  albumId Int
+  ArtistaMusica artista_musica [not null]
+}
+
+Table albums {
+  id Int [pk, increment]
+  nome_album String [not null]
+  autor String
+  date_created DateTime [default: `now()`, not null]
+  last_modified DateTime [not null]
+  artista artistas [not null]
+  musicas musicas [not null]
+}
+
+Table artista_musica {
+  id Int [pk, increment]
+  artista artistas
+  artistaId Int [not null]
+  musica musicas
+  musicaId Int [not null]
+}
+
+Table AlbumToArtista {
+  albumsId Int [ref: > albums.id]
+  artistaId Int [ref: > artistas.id]
+}
+
+Ref: musicas.artistaId > artistas.id
+
+Ref: musicas.albumId > albums.id
+
+Ref: artista_musica.artistaId > artistas.id
+
+Ref: artista_musica.musicaId > musicas.id
