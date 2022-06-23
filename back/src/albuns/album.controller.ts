@@ -22,7 +22,7 @@ export class AlbumController {
   }
 
   @Get(':albumId')
-  getAlbum(@Param('albumId') albumId: number) {
+  getAlbum(@Param('albumId', ParseIntPipe) albumId: number) {
     return this.albumService.getAlbumById(albumId);
   }
 
