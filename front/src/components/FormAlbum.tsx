@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { api } from "../services/axios";
 import { Toast } from "../utils/toast";
@@ -22,6 +21,7 @@ export function FormAlbum({ albumId }: FormAlbumProps) {
           icon: "success",
           title: "Atualizado com sucesso!",
         });
+        window.location.reload(), 4000;
         fn();
       } catch (e: any) {
         Toast.fire({

@@ -22,7 +22,7 @@ export class MusicaController {
   }
 
   @Get(':musicaId')
-  getmusica(@Param('musicaId') musicaId: number) {
+  getmusica(@Param('musicaId', ParseIntPipe) musicaId: number) {
     return this.musicaService.getMusicaById(musicaId);
   }
 
