@@ -39,15 +39,6 @@ CREATE TABLE "albums" (
 );
 
 -- CreateTable
-CREATE TABLE "artista_musica" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "artistaId" INTEGER NOT NULL,
-    "musicaId" INTEGER NOT NULL,
-    CONSTRAINT "artista_musica_artistaId_fkey" FOREIGN KEY ("artistaId") REFERENCES "artistas" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "artista_musica_musicaId_fkey" FOREIGN KEY ("musicaId") REFERENCES "musicas" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
--- CreateTable
 CREATE TABLE "_AlbumToArtista" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL,

@@ -34,11 +34,6 @@ export class MusicaService {
       const musicaCreate = await this.dataService.musica.create({
         data: {
           ...musica,
-          ArtistaMusica: {
-            create: {
-              artistaId: musica.artistaId,
-            },
-          },
         },
         select: {
           titulo: true,

@@ -34,15 +34,14 @@ model User {
 }
 
 model Artista {
-  id            Int             @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   f_name        String
   l_name        String
-  date_created  DateTime        @default(now())
-  last_modified DateTime        @updatedAt
+  date_created  DateTime @default(now())
+  last_modified DateTime @updatedAt
   albums        Album[]
-  musicas       ArtistaMusica[]
+  Musica        Musica[]
 
-  Musica Musica[]
   @@map("artistas")
 }
 
@@ -55,8 +54,6 @@ model Musica {
   artistaId     Int?
   Album         Album?   @relation(fields: [albumId], references: [id])
   albumId       Int?
-
-  ArtistaMusica ArtistaMusica[]
 
   @@map("musicas")
 }
@@ -71,14 +68,4 @@ model Album {
   musicas       Musica[]
 
   @@map("albums")
-}
-
-model ArtistaMusica {
-  id        Int      @id @default(autoincrement())
-  artista   Artista? @relation(fields: [artistaId], references: [id])
-  artistaId Int
-  musica    Musica?  @relation(fields: [musicaId], references: [id])
-  musicaId  Int
-
-  @@map("artista_musica")
 }

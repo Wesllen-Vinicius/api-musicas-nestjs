@@ -76,10 +76,40 @@ export default function updateDados() {
     });
   }, []);
 
+  const deleteMusica = async (id: number) => {
+    await api.delete(`musicas/${id}`).then(() => {
+      Toast.fire({
+        icon: "success",
+        title: "Excluido com sucesso!",
+      });
+      window.location.reload(), 4000;
+    });
+  };
+
+  const deleteAlbum = async (id: number) => {
+    await api.delete(`albums/${id}`).then(() => {
+      Toast.fire({
+        icon: "success",
+        title: "Excluido com sucesso!",
+      });
+      window.location.reload(), 4000;
+    });
+  };
+
+  const deleteArtista = async (id: number) => {
+    await api.delete(`artistas/${id}`).then(() => {
+      Toast.fire({
+        icon: "success",
+        title: "Excluido com sucesso!",
+      });
+      window.location.reload(), 4000;
+    });
+  };
+
   return (
     <>
       {/* MUSICAS */}
-      <div>
+      <div >
         <h1 className="text-grey-900 text-3xl font-extrabold leading-9 tracking-tight dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
           Musica
         </h1>
@@ -99,7 +129,8 @@ export default function updateDados() {
                 <th scope="col" className="px-6 py-3">
                   Id Musica
                 </th>
-                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" ></th>
+                <th scope="col" ></th>
               </tr>
             </thead>
             <tbody>
@@ -116,9 +147,18 @@ export default function updateDados() {
                   </th>
                   <td className="px-6 py-4">{musica.Artista?.f_name}</td>
                   <td className="px-6 py-4">{musica.Album?.nome_album}</td>
-                  <td className="px-6 py-4">{musica.id}</td>
-                  <td className="px-6 py-4 text-right">
+                  <td className="px-6 ">{musica.id}</td>
+                  <td className="text-right">
                     <FormMusica musicaId={musica.id} />
+                  </td>
+                  <td className="text-right">
+                    <button
+                      className="bg-green-700 text-white w-24 h-10 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={() => deleteMusica(musica.id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -128,7 +168,7 @@ export default function updateDados() {
       </div>
 
       {/* ALBUM */}
-      <div>
+      <div className="pt-20">
         <h1 className="text-grey-900 text-3xl font-extrabold leading-9 tracking-tight dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
           Album
         </h1>
@@ -145,7 +185,8 @@ export default function updateDados() {
                 <th scope="col" className="px-6 py-3">
                   ID Album
                 </th>
-                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" ></th>
+                <th scope="col" ></th>
               </tr>
             </thead>
             <tbody>
@@ -165,6 +206,15 @@ export default function updateDados() {
                   <td className="px-6 py-4 text-right">
                     <FormAlbum albumId={album.id} />
                   </td>
+                  <td className="text-right">
+                    <button
+                      className="bg-green-700 text-white w-24 h-10 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={() => deleteAlbum(album.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -173,7 +223,7 @@ export default function updateDados() {
       </div>
 
       {/* ARTISTAS */}
-      <div>
+      <div className="pt-20">
         <h1 className="text-grey-900 text-3xl font-extrabold leading-9 tracking-tight dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
           Artista
         </h1>
@@ -193,6 +243,8 @@ export default function updateDados() {
                 <th scope="col" className="px-6 py-3">
                   <span className="sr-only">Edit</span>
                 </th>
+                <th scope="col" ></th>
+                <th scope="col" ></th>
               </tr>
             </thead>
             <tbody>
@@ -211,6 +263,15 @@ export default function updateDados() {
                   <td className="px-6 py-4">{artistas.id}</td>
                   <td className="px-6 py-4 text-right">
                     <FormArtista artistaId={artistas.id} />
+                  </td>
+                  <td className="text-right">
+                    <button
+                      className="bg-green-700 text-white w-24 h-10 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={() => deleteArtista(artistas.id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}

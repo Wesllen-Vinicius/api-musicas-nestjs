@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { api } from "../services/axios";
 import { Toast } from "../utils/toast";
@@ -7,8 +8,12 @@ interface FormMusicaProps {
   musicaId: number;
 }
 interface IFormValues {
+  id: number;
   titulo: string;
+  date_created: string;
+  last_modified: string;
 }
+
 
 export function FormMusica({ musicaId }: FormMusicaProps) {
   const { register, handleSubmit, setValue } = useForm<IFormValues>();
@@ -29,15 +34,18 @@ export function FormMusica({ musicaId }: FormMusicaProps) {
           title: e.message,
         });
       }
-      console.log(data);
     };
     return submit;
   };
+
   const loadData = () => {
     api.get<IFormValues>(`musicas/${musicaId}`).then((res) => {
       setValue("titulo", res.data.titulo);
     });
   };
+
+
+
 
   return (
     <Modal onOpen={loadData}>

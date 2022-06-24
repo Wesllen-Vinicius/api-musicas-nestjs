@@ -18,7 +18,6 @@ Table artistas {
   date_created DateTime [default: `now()`, not null]
   last_modified DateTime [not null]
   albums albums [not null]
-  musicas artista_musica [not null]
   Musica musicas [not null]
 }
 
@@ -31,7 +30,6 @@ Table musicas {
   artistaId Int
   Album albums
   albumId Int
-  ArtistaMusica artista_musica [not null]
 }
 
 Table albums {
@@ -44,14 +42,6 @@ Table albums {
   musicas musicas [not null]
 }
 
-Table artista_musica {
-  id Int [pk, increment]
-  artista artistas
-  artistaId Int [not null]
-  musica musicas
-  musicaId Int [not null]
-}
-
 Table AlbumToArtista {
   albumsId Int [ref: > albums.id]
   artistaId Int [ref: > artistas.id]
@@ -60,7 +50,3 @@ Table AlbumToArtista {
 Ref: musicas.artistaId > artistas.id
 
 Ref: musicas.albumId > albums.id
-
-Ref: artista_musica.artistaId > artistas.id
-
-Ref: artista_musica.musicaId > musicas.id
